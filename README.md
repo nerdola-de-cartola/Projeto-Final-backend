@@ -31,11 +31,11 @@ Siga os passos abaixo para importar o projeto no IntelliJ IDEA:
 
 ### 1ª opção
 
-1. No IntelliJ, abra a aba `Maven`.  ![Símbolo Maven no IntelliJ IDEA](C:/projetos/api/maven_logo.png )
+1. No IntelliJ, abra a aba `Maven`.  ![Símbolo Maven no IntelliJ IDEA](https://github.com/POO-2024-1/api/blob/master/maven_logo.png)
 
 2. Expanda o diretório do projeto e navegue até `Lifecycle`. 
 
-   ![Opções Maven no IntelliJ IDEA](C:/projetos/api/maven_opcoes.png)
+   ![Opções Maven no IntelliJ IDEA](https://github.com/POO-2024-1/api/blob/master/maven_opcoes.png)
 
 3. Clique duas vezes em `install` para baixar e instalar todas as dependências do projeto.
 

@@ -29,6 +29,18 @@ Siga os passos abaixo para importar o projeto no IntelliJ IDEA:
 
 ## 3. Configurando e Rodando as Dependências com Maven
 
+### 1ª opção
+
+1. No IntelliJ, abra a aba `Maven`.  ![Símbolo Maven no IntelliJ IDEA](C:/projetos/maven_logo.png )
+
+2. Expanda o diretório do projeto e navegue até `Lifecycle`. 
+
+   ![Símbolo Maven no IntelliJ IDEA](C:/projetos/maven_opcoes.png)
+
+3. Clique duas vezes em `install` para baixar e instalar todas as dependências do projeto.
+
+### 2ª opção
+
 Para configurar e rodar as dependências do projeto utilizando Maven, siga os passos abaixo:
 
 1. No IntelliJ IDEA, abra o **Terminal** integrado ou use seu terminal favorito.

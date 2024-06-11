@@ -1,10 +1,12 @@
-```markdown
 # Guia de Configuração do Projeto Spring Boot
 
 Este guia fornece instruções para baixar o projeto, importá-lo no IntelliJ IDEA e configurar as dependências utilizando o Maven.
 
+
+
 ## 1. Baixando o Projeto
 
+```markdown
 Para clonar o repositório do projeto, siga os passos abaixo:
 
 1. Abra seu terminal.

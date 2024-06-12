@@ -57,7 +57,7 @@ mvn clean install
 
 Para rodar o projeto, siga os passos abaixo:
 
-1. No IntelliJ IDEA, abra o arquivo principal da aplicação Spring Boot. Geralmente, este arquivo está localizado em `src/main/java` e possui a anotação `@SpringBootApplication`.
+1. No IntelliJ IDEA, abra o arquivo principal da aplicação Spring Boot. Este arquivo está localizado em `src/main/java` **pacote 'br.gov.ufg' > Classe 'ApiApplication'** e possui a anotação `@SpringBootApplication`.
 2. Clique com o botão direito no arquivo e selecione **Run 'ApiApplication'**. Alternativamente, você pode clicar no ícone de play que aparece ao lado do nome da classe.
 
 O projeto será iniciado e você deverá ver mensagens de log no console indicando que a aplicação Spring Boot foi iniciada com sucesso.

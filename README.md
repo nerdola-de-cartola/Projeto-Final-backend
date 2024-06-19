@@ -31,11 +31,10 @@ Siga os passos abaixo para importar o projeto no IntelliJ IDEA:
 
 ### 1ª opção
 
-1. No IntelliJ, abra a aba `Maven`.  ![Símbolo Maven no IntelliJ IDEA](https://github.com/POO-2024-1/api/blob/master/maven_logo.png)
+1. No IntelliJ, abra a aba `Maven`. 
 
 2. Expanda o diretório do projeto e navegue até `Lifecycle`. 
 
-   ![Opções Maven no IntelliJ IDEA](https://github.com/POO-2024-1/api/blob/master/maven_opcoes.png)
 
 3. Clique duas vezes em `install` para baixar e instalar todas as dependências do projeto.
 
@@ -62,6 +61,12 @@ Para rodar o projeto, siga os passos abaixo:
 
 O projeto será iniciado e você deverá ver mensagens de log no console indicando que a aplicação Spring Boot foi iniciada com sucesso.
 
+3. Para rodar o projeto sem o IntelliJ IDEA execute o comando
+```
+java -jar target/api-0.0.1-SNAPSHOT.jar
+```
+
+
 ## 5. Acessando a API
 
 Depois de iniciar a aplicação, você pode acessar os endpoints da API utilizando uma ferramenta como Postman ou diretamente pelo seu navegador. As URL's base padrão para a aplicação serão:
@@ -72,3 +77,4 @@ http://localhost:8080/listarProdutoById/{id}
 
 ```
 http://localhost:8080/listarProdutos
+```

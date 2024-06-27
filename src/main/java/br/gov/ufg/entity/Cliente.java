@@ -1,5 +1,6 @@
 package br.gov.ufg.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Cliente {
@@ -24,6 +25,7 @@ public abstract class Cliente {
         this.telefone = telefone;
         this.userName = userName;
         this.password = password;
+        this.pedidos = new ArrayList<String>();
     }
 
     public boolean login(String userName, String password) {

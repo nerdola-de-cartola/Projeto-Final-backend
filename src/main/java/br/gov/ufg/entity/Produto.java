@@ -1,18 +1,16 @@
 package br.gov.ufg.entity;
 
-import java.math.BigDecimal;
-
 public class Produto {
-    private Integer id;
+    private Integer idProduto;
     private String nome;
     private String descricao;
-    private BigDecimal preco;
+    private double preco;
     private int estoque;
 
     private String imagem;
 
-    public Produto(Integer id, String nome, String descricao, BigDecimal preco, int estoque, String imagem) {
-        this.id = id;
+    public Produto(Integer idProduto, String nome, String descricao, double preco, int estoque, String imagem) {
+        this.idProduto = idProduto;
         this.nome = nome;
         this.descricao = descricao;
         this.preco = preco;
@@ -20,12 +18,20 @@ public class Produto {
         this.imagem = imagem;
     }
 
-    public Integer getId() {
-        return id;
+    public void atualizaEstoque(int quantidade){
+        this.estoque = quantidade;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void atualizaPreco(double preco){
+        this.preco = preco;
+    }
+
+    public Integer getidProduto() {
+        return idProduto;
+    }
+
+    public void setidProduto(Integer idProduto) {
+        this.idProduto = idProduto;
     }
 
     public String getNome() {
@@ -44,11 +50,11 @@ public class Produto {
         this.descricao = descricao;
     }
 
-    public BigDecimal getPreco() {
+    public double getPreco() {
         return preco;
     }
 
-    public void setPreco(BigDecimal preco) {
+    public void setPreco(double preco) {
         this.preco = preco;
     }
 
@@ -71,7 +77,7 @@ public class Produto {
     @Override
     public String toString() {
         return "Produto{" +
-                "id=" + id +
+                "id=" + idProduto +
                 ", nome='" + nome + '\'' +
                 '}';
     }

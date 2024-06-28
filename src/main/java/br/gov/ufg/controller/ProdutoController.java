@@ -45,7 +45,7 @@ public class ProdutoController {
         }
 
         Produto produto = produtos.stream()
-                .filter(prod -> prod.getId().equals(id))
+                .filter(prod -> prod.getidProduto() == id)
                 .findFirst()
                 .orElse(null);
 

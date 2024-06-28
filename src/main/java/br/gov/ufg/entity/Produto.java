@@ -1,15 +1,17 @@
 package br.gov.ufg.entity;
 
+import java.math.BigDecimal;
+
 public class Produto {
-    private Integer idProduto;
+    private int idProduto;
     private String nome;
     private String descricao;
-    private double preco;
+    private BigDecimal preco;
     private int estoque;
 
     private String imagem;
 
-    public Produto(Integer idProduto, String nome, String descricao, double preco, int estoque, String imagem) {
+    public Produto(int idProduto, String nome, String descricao, BigDecimal preco, int estoque, String imagem) {
         this.idProduto = idProduto;
         this.nome = nome;
         this.descricao = descricao;
@@ -22,15 +24,15 @@ public class Produto {
         this.estoque = quantidade;
     }
 
-    public void atualizaPreco(double preco){
+    public void atualizaPreco(BigDecimal preco){
         this.preco = preco;
     }
 
-    public Integer getidProduto() {
+    public int getidProduto() {
         return idProduto;
     }
 
-    public void setidProduto(Integer idProduto) {
+    public void setidProduto(int idProduto) {
         this.idProduto = idProduto;
     }
 
@@ -50,11 +52,11 @@ public class Produto {
         this.descricao = descricao;
     }
 
-    public double getPreco() {
+    public BigDecimal getPreco() {
         return preco;
     }
 
-    public void setPreco(double preco) {
+    public void setPreco(BigDecimal preco) {
         this.preco = preco;
     }
 

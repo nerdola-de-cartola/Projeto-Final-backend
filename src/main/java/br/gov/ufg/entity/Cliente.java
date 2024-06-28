@@ -11,7 +11,7 @@ public abstract class Cliente {
     private String telefone;
     private String userName;
     private String password;
-    private List<String> pedidos;
+    private List<Pedido> pedidos;
 
     public Cliente() {}
 
@@ -25,7 +25,7 @@ public abstract class Cliente {
         this.telefone = telefone;
         this.userName = userName;
         this.password = password;
-        this.pedidos = new ArrayList<String>();
+        this.pedidos = new ArrayList<Pedido>();
     }
 
     public boolean login(String userName, String password) {
@@ -97,5 +97,15 @@ public abstract class Cliente {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+
+    public List<Pedido> getPedidos() {
+        return pedidos;
+    }
+
+
+    public void setPedidos(List<Pedido> pedidos) {
+        this.pedidos = pedidos;
     }
 }

@@ -15,7 +15,6 @@ public abstract class Cliente {
 
     public Cliente() {}
 
-
     public Cliente(int idCLiente, String nome, String email, String endereço, String telefone, String userName,
             String password) {
         this.idCLiente = idCLiente;
@@ -29,9 +28,7 @@ public abstract class Cliente {
     }
 
     public boolean login(String userName, String password) {
-        //TODO login
-        System.err.println("TODO login");
-        return true;
+        return userName == this.userName && password == this.password;
     }
 
     public void atualizaDados(Cliente novoCliente) {

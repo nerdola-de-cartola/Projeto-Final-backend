@@ -1,6 +1,7 @@
 package br.gov.ufg.entity;
 
 import java.sql.Date;
+import br.gov.ufg.utils.RegexUtils;
 
 public class ClientePessoaFisica extends Cliente {
     private String cpf;
@@ -30,9 +31,8 @@ public class ClientePessoaFisica extends Cliente {
     }
 
     public boolean validaCPF(String cpf) {
-        //TODO validar CPF
-        System.err.println("TODO validar cpf");
-        return true;
+        String regex = "/^[0-9]{3}.?[0-9]{3}.?[0-9]{3}-?[0-9]{2}/";
+        return RegexUtils.validaStringPorRegex(regex, cpf);
     }
 
     public String getCpf() {

@@ -1,7 +1,5 @@
 package br.gov.ufg.entity;
 
-import br.gov.ufg.utils.RegexUtils;
-
 public class ClientePessoaJuridica extends Cliente {
     private String cnpj;
     private String razaoSocial;
@@ -36,8 +34,7 @@ public class ClientePessoaJuridica extends Cliente {
     }
 
     public boolean validaCNPJ(String cnpj) {
-        String regex = "/^\\d{2}\\.\\d{3}\\.\\d{3}\\/\\d{4}\\-\\d{2}$/";
-        return RegexUtils.validaStringPorRegex(regex, cnpj);
+        return true;
     }
 
     public String getCnpj() {

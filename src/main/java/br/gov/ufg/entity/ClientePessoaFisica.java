@@ -1,7 +1,9 @@
 package br.gov.ufg.entity;
 
 import java.sql.Date;
-import br.gov.ufg.utils.RegexUtils;
+import java.util.regex.Pattern;
+
+import br.gov.ufg.utils.ValidaCPF;
 
 public class ClientePessoaFisica extends Cliente {
     private String cpf;
@@ -30,9 +32,8 @@ public class ClientePessoaFisica extends Cliente {
         this.dataDeNascimento = dataDeNascimento;
     }
 
-    public boolean validaCPF(String cpf) {
-        String regex = "/^[0-9]{3}.?[0-9]{3}.?[0-9]{3}-?[0-9]{2}/";
-        return RegexUtils.validaStringPorRegex(regex, cpf);
+    public boolean validaCPF() {
+        return ValidaCPF.isValidCPF(this.cpf);
     }
 
     public String getCpf() {
@@ -52,5 +53,15 @@ public class ClientePessoaFisica extends Cliente {
     }
     public void setDataDeNascimento(Date dataDeNascimento) {
         this.dataDeNascimento = dataDeNascimento;
+    }
+
+    @Override
+    public String toString() {
+        return "ClientePessoaFisica [cpf=" + cpf + ", rg=" + rg + ", dataDeNascimento=" + dataDeNascimento
+                + ", getEmail()=" + getEmail() + ", getSenha()=" + getSenha() + ", validaCPF()=" + validaCPF()
+                + ", getCpf()=" + getCpf() + ", getRg()=" + getRg() + ", getNome()=" + getNome()
+                + ", getDataDeNascimento()=" + getDataDeNascimento() + ", getidCliente()=" + getidCliente()
+                + ", getEndereço()=" + getEndereço() + ", getTelefone()=" + getTelefone() + ", getUserName()="
+                + getUserName() + ", getPedidos()=" + getPedidos() + "]";
     }
 }

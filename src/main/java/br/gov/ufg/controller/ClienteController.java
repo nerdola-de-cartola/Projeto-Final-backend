@@ -4,10 +4,8 @@ import br.gov.ufg.dto.ClienteDTO;
 import br.gov.ufg.entity.Cliente;
 import br.gov.ufg.entity.ClientePessoaFisica;
 import br.gov.ufg.entity.Login;
-
-import java.lang.reflect.Field;
+import br.gov.ufg.utils.HttpException;
 import java.util.List;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,75 +18,76 @@ import org.springframework.web.bind.annotation.RestController;
 public class ClienteController {
 
     @PostMapping("cliente/login")
-    public ResponseEntity<Cliente> login(@RequestBody Login login) {
+    public ResponseEntity<Object> login(@RequestBody Login login) { 
+        List<ClientePessoaFisica> clientes = null;
+        
         try {
-            System.out.println(login);
-            
-            List<Cliente> clientes = ClienteDTO.lerClientesDoArquivo();
-            
-            Cliente cliente = clientes.stream()
+            clientes = ClienteDTO.lerClientesPFDoArquivo();
+        } catch (Exception e) {
+            return HttpException.handleException(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        Cliente cliente = clientes.stream()
                 .filter(c -> c.login(login.getEmail(), login.getSenha()))
                 .findFirst()
                 .orElse(null);
-            
-            System.out.println(cliente);
 
-            if (cliente == null) {
-                throw new Exception("Cliente não existe na base de daos");
-            }
-
-            return new ResponseEntity<>(cliente, HttpStatus.ACCEPTED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        if (cliente == null) {
+            return HttpException.handleException("Cliente não existe na base de dados", HttpStatus.FORBIDDEN);
         }
+
+        return new ResponseEntity<>(cliente, HttpStatus.ACCEPTED);
     }
 
     @PostMapping("cliente/pessoaFisisca")
-    public ResponseEntity<ClientePessoaFisica> cadastrarPessoaFisica(@RequestBody ClientePessoaFisica novoCliente) {
+    public ResponseEntity<Object> cadastrarPessoaFisica(@RequestBody ClientePessoaFisica novoCliente) {
+        if (
+            novoCliente.getCpf() == null ||
+            novoCliente.getDataDeNascimento() == null ||
+            novoCliente.getEmail() == null ||
+            novoCliente.getEndereço() == null ||
+            novoCliente.getNome() == null ||
+            novoCliente.getRg() == null ||
+            novoCliente.getSenha() == null ||
+            novoCliente.getTelefone() == null ||
+            novoCliente.getUserName() == null ||
+            novoCliente.getidCliente() != null
+        ) {
+            return HttpException.handleException("Campos inválidos no cadastro do cliente", HttpStatus.BAD_REQUEST);
+        }
+
+        if (!novoCliente.validaCPF()) {
+            return HttpException.handleException("CPF inválido", HttpStatus.BAD_REQUEST);
+        }
+
+        List<ClientePessoaFisica> clientes = null;
         try {
-            System.out.println(novoCliente);
+            clientes = ClienteDTO.lerClientesPFDoArquivo();
+        } catch (Exception e) {
+            return HttpException.handleException(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
 
-            if (
-                novoCliente.getCpf() == null ||
-                novoCliente.getDataDeNascimento() == null ||
-                novoCliente.getEmail() == null ||
-                novoCliente.getEndereço() == null ||
-                novoCliente.getNome() == null ||
-                novoCliente.getRg() == null ||
-                novoCliente.getSenha() == null ||
-                novoCliente.getTelefone() == null ||
-                novoCliente.getUserName() == null ||
-                novoCliente.getidCliente() != null
-            ) {
-                throw new Exception("Campos inválidos no cadastro do cliente");
-
-            }
-            
-            if(!novoCliente.validaCPF()) {
-                throw new Exception("CPF inválido");
-            }
-
-            List<Cliente> clientes = ClienteDTO.lerClientesDoArquivo();
-            
-            Cliente cliente = clientes.stream()
-                .filter(c ->
-                    c.getidCliente().equals(novoCliente.getidCliente()) ||
-                    c.getEmail().equals(novoCliente.getEmail()) ||
-                    (c.getClass() == ClientePessoaFisica.class &&
-                    ((ClientePessoaFisica) c).getCpf().equals(novoCliente.getCpf()))
-                )
+        ClientePessoaFisica cliente = clientes.stream()
+                .filter(c -> {
+                    return c.getEmail().equals(novoCliente.getEmail()) ||
+                    c.getCpf().equals(novoCliente.getCpf());
+                })
                 .findFirst()
                 .orElse(null);
 
-            if (cliente != null) {
-                throw new Exception("Cliente já cadastrado");
-            }
-
-            return new ResponseEntity<>(novoCliente, HttpStatus.CREATED);
-        } catch (Exception e) {
-            System.err.println(e);
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        if (cliente != null) {
+            return HttpException.handleException("Cliente já cadastrado", HttpStatus.CONFLICT);
         }
-    }
+        
+        novoCliente.setidCliente(clientes.size());
 
+        try {
+            ClienteDTO.salvarCliente(novoCliente);
+        } catch (Exception e) {
+            return HttpException.handleException(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+
+        return new ResponseEntity<>(novoCliente, HttpStatus.CREATED);
+    }
 }

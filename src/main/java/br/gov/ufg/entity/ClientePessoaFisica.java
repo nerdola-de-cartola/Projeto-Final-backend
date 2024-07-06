@@ -1,7 +1,7 @@
 package br.gov.ufg.entity;
 
-import java.sql.Date;
-import java.util.regex.Pattern;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import br.gov.ufg.utils.ValidaCPF;
 
@@ -63,5 +63,10 @@ public class ClientePessoaFisica extends Cliente {
                 + ", getDataDeNascimento()=" + getDataDeNascimento() + ", getidCliente()=" + getidCliente()
                 + ", getEndereço()=" + getEndereço() + ", getTelefone()=" + getTelefone() + ", getUserName()="
                 + getUserName() + ", getPedidos()=" + getPedidos() + "]";
+    }
+
+    public String toTxt() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return super.toTxt() + "," + cpf + "," + rg + "," + simpleDateFormat.format(dataDeNascimento);
     }
 }

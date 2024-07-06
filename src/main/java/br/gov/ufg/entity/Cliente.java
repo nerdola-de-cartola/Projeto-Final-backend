@@ -3,7 +3,7 @@ package br.gov.ufg.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Cliente extends Login {
+public abstract class Cliente extends Login {
     private Integer idCliente;
     private String nome;
     private String endereço;
@@ -88,5 +88,16 @@ public class Cliente extends Login {
         return "Cliente [idCliente=" + idCliente + ", nome=" + nome + ", endereço=" + endereço + ", telefone="
                 + telefone + ", userName=" + userName + ", pedidos=" + pedidos + ", getEmail()=" + getEmail()
                 + ", getSenha()=" + getSenha() + "]";
+    }
+
+    public String toTxt() {
+        return
+            idCliente.toString() + "," +
+            nome + "," +
+            endereço + "," +
+            telefone + "," +
+            userName + "," +
+            getEmail() + "," +
+            getSenha();
     }
 }

@@ -13,8 +13,14 @@ public abstract class Cliente extends Login {
 
     public Cliente() {}
 
-    public Cliente(Integer idCliente, String nome, String email, String endereço, String telefone, String userName,
-            String senha)
+    public Cliente(
+        Integer idCliente,
+        String nome,
+        String email,
+        String endereço,
+        String telefone,
+        String userName,
+        String senha)
     {
         super(email, senha);
         this.idCliente = idCliente;

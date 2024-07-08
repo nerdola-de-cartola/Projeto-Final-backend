@@ -55,4 +55,30 @@ public class ClientePessoaJuridica extends Cliente {
     public void setInscricaoEstadual(String inscricaoEstadual) {
         this.inscricaoEstadual = inscricaoEstadual;
     }
+
+    @Override
+    public String toTxt() {
+        return
+            super.toTxt() + "," +
+            cnpj + "," +
+            razaoSocial + "," +
+            inscricaoEstadual;
+    }
+
+    @Override
+    public String toString() {
+        return
+        "ClientePessoaJuridica {" +
+        "  getEmail()=" + getEmail() +
+        ", getSenha()=" + getSenha() +
+        ", getCnpj()=" + getCnpj() +
+        ", getRazaoSocial()=" + getRazaoSocial() +
+        ", getNome()=" + getNome() +
+        ", getInscricaoEstadual()=" + getInscricaoEstadual() +
+        ", getidCliente()=" + getidCliente() +
+        ", getEndereço()=" + getEndereço() +
+        ", getTelefone()=" + getTelefone() +
+        ", getUserName()=" + getUserName() +
+        "}";
+    }
 }

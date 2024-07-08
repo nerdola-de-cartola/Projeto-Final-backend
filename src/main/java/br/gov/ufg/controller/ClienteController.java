@@ -19,10 +19,10 @@ public class ClienteController {
 
     @PostMapping("cliente/login")
     public ResponseEntity<Object> login(@RequestBody Login login) { 
-        List<ClientePessoaFisica> clientes = null;
+        List<Cliente> clientes = null;
         
         try {
-            clientes = ClienteDTO.lerClientesPFDoArquivo();
+            clientes = ClienteDTO.lerClientesDoArquivo();
         } catch (Exception e) {
             return HttpException.handleException(e, HttpStatus.INTERNAL_SERVER_ERROR);
         }

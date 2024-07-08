@@ -57,12 +57,19 @@ public class ClientePessoaFisica extends Cliente {
 
     @Override
     public String toString() {
-        return "ClientePessoaFisica [cpf=" + cpf + ", rg=" + rg + ", dataDeNascimento=" + dataDeNascimento
-                + ", getEmail()=" + getEmail() + ", getSenha()=" + getSenha() + ", validaCPF()=" + validaCPF()
-                + ", getCpf()=" + getCpf() + ", getRg()=" + getRg() + ", getNome()=" + getNome()
-                + ", getDataDeNascimento()=" + getDataDeNascimento() + ", getidCliente()=" + getidCliente()
-                + ", getEndereço()=" + getEndereço() + ", getTelefone()=" + getTelefone() + ", getUserName()="
-                + getUserName() + ", getPedidos()=" + getPedidos() + "]";
+        return 
+            "ClientePessoaFisica {" +
+            "  getEmail()=" + getEmail() +
+            ", getSenha()=" + getSenha() +
+            ", getCpf()=" + getCpf() +
+            ", getRg()=" + getRg() +
+            ", getNome()=" + getNome() +
+            ", getDataDeNascimento()=" + getDataDeNascimento() +
+            ", getidCliente()=" + getidCliente() +
+            ", getEndereço()=" + getEndereço() +
+            ", getTelefone()=" + getTelefone() +
+            ", getUserName()=" + getUserName() +
+            "}";
     }
 
     public String toTxt() {

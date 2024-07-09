@@ -42,7 +42,7 @@ public class ValidaCPF {
     }
 
     public static void main(String[] args) {
-        String[] testCpfs = {"123.456.789-09", "111.444.777-35", "12345678909", "11144477735"};
+        String[] testCpfs = {"123.456.789-08", "111.444.777-35", "12345678909", "11144477735"};
 
         for (String cpf : testCpfs) {
             System.out.println("CPF: " + cpf + " - Válido? " + isValidCPF(cpf));

@@ -88,8 +88,6 @@ public class ClienteDTO {
     public static ClientePessoaJuridica lerClientePJ(String line) throws ParseException {
         String[] clientString = line.split(",");
 
-        System.out.println(line);
-
         int idCLiente = Integer.parseInt(clientString[0]);
         String nome = clientString[1];
         String endereço = clientString[2];
@@ -105,7 +103,18 @@ public class ClienteDTO {
     }
 
     public static void salvarCliente(ClientePessoaFisica cliente) throws URISyntaxException, IOException {
-        File f = new File(CAMINHO_DATABASE);
+        File f = new File(CAMINHO_DATABASE + "clientesPF.txt");
+
+        PrintWriter pw = new PrintWriter(
+            new FileOutputStream(new File(f.getAbsolutePath()), true)
+        ); 
+        pw.println(cliente.toTxt());
+        pw.flush();
+        pw.close();
+    }
+
+    public static void salvarCliente(ClientePessoaJuridica cliente) throws URISyntaxException, IOException {
+        File f = new File(CAMINHO_DATABASE + "clientesPJ.txt");
 
         PrintWriter pw = new PrintWriter(
             new FileOutputStream(new File(f.getAbsolutePath()), true)

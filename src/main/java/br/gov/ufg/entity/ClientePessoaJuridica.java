@@ -1,5 +1,7 @@
 package br.gov.ufg.entity;
 
+import br.gov.ufg.utils.ValidaCNPJ;
+
 public class ClientePessoaJuridica extends Cliente {
     private String cnpj;
     private String razaoSocial;
@@ -33,8 +35,8 @@ public class ClientePessoaJuridica extends Cliente {
         this.inscricaoEstadual = inscricaoEstadual;
     }
 
-    public boolean validaCNPJ(String cnpj) {
-        return true;
+    public boolean validaCNPJ() { 
+        return ValidaCNPJ.isValidCNPJ(cnpj);
     }
 
     public String getCnpj() {

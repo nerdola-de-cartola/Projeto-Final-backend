@@ -3,6 +3,7 @@ package br.gov.ufg.controller;
 import br.gov.ufg.dto.ClienteDTO;
 import br.gov.ufg.entity.Cliente;
 import br.gov.ufg.entity.ClientePessoaFisica;
+import br.gov.ufg.entity.ClientePessoaJuridica;
 import br.gov.ufg.entity.Login;
 import br.gov.ufg.utils.HttpException;
 import java.util.List;
@@ -10,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -60,20 +62,86 @@ public class ClienteController {
             return HttpException.handleException("CPF inválido", HttpStatus.BAD_REQUEST);
         }
 
-        List<ClientePessoaFisica> clientes = null;
+        List<Cliente> clientes = null;
         try {
-            clientes = ClienteDTO.lerClientesPFDoArquivo();
+            clientes = ClienteDTO.lerClientesDoArquivo();
         } catch (Exception e) {
             return HttpException.handleException(e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        ClientePessoaFisica cliente = clientes.stream()
+        Cliente cliente = clientes.stream()
                 .filter(c -> {
-                    return c.getEmail().equals(novoCliente.getEmail()) ||
-                    c.getCpf().equals(novoCliente.getCpf());
+                    if(c.getEmail().equals(novoCliente.getEmail())) {
+                        return true;
+                    }
+    
+                    if(c.getClass() == ClientePessoaFisica.class){
+                        return ((ClientePessoaFisica) c).getCpf().equals(novoCliente.getCpf());
+                    } 
+    
+                    return false;
                 })
                 .findFirst()
                 .orElse(null);
+
+        if (cliente != null) {
+            return HttpException.handleException("Cliente já cadastrado", HttpStatus.CONFLICT);
+        }
+        
+        novoCliente.setidCliente(clientes.size());
+
+        try {
+            ClienteDTO.salvarCliente(novoCliente);
+        } catch (Exception e) {
+            return HttpException.handleException(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+
+        return new ResponseEntity<>(novoCliente, HttpStatus.CREATED);
+    }
+
+    @PostMapping("cliente/pessoaJuridica")
+    public ResponseEntity<Object> cadastrarPessoaJuridica(@RequestBody ClientePessoaJuridica novoCliente) {
+        if (
+            novoCliente.getCnpj() == null ||
+            novoCliente.getInscricaoEstadual() == null ||
+            novoCliente.getEmail() == null ||
+            novoCliente.getEndereço() == null ||
+            novoCliente.getNome() == null ||
+            novoCliente.getRazaoSocial() == null ||
+            novoCliente.getSenha() == null ||
+            novoCliente.getTelefone() == null ||
+            novoCliente.getUserName() == null ||
+            novoCliente.getidCliente() != null
+        ) {
+            return HttpException.handleException("Campos inválidos no cadastro do cliente", HttpStatus.BAD_REQUEST);
+        }
+
+        if (!novoCliente.validaCNPJ()) {
+            return HttpException.handleException("CNPJ inválido", HttpStatus.BAD_REQUEST);
+        }
+
+        List<Cliente> clientes = null;
+        try {
+            clientes = ClienteDTO.lerClientesDoArquivo();
+        } catch (Exception e) {
+            return HttpException.handleException(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        Cliente cliente = clientes.stream()
+            .filter(c -> {
+                if(c.getEmail().equals(novoCliente.getEmail())) {
+                    return true;
+                }
+
+                if(c.getClass() == ClientePessoaJuridica.class){
+                    return ((ClientePessoaJuridica) c).getCnpj().equals(novoCliente.getCnpj());
+                } 
+
+                return false;
+            })
+            .findFirst()
+            .orElse(null);
 
         if (cliente != null) {
             return HttpException.handleException("Cliente já cadastrado", HttpStatus.CONFLICT);

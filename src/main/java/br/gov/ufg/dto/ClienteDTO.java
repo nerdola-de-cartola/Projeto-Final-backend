@@ -5,9 +5,12 @@ import br.gov.ufg.entity.ClientePessoaFisica;
 import br.gov.ufg.entity.ClientePessoaJuridica;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -18,7 +21,6 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Date;
-
 
 public class ClienteDTO {
     private static final String CAMINHO_DATABASE = "src/main/resources/database/";
@@ -38,10 +40,11 @@ public class ClienteDTO {
         InputStream is = new FileInputStream(f.getAbsolutePath());
         InputStreamReader isr = new InputStreamReader(is);
         BufferedReader br = new BufferedReader(isr);
-        
+
         while (true) {
             String linha = br.readLine();
-            if (linha == null) break;
+            if (linha == null)
+                break;
             ClientePessoaFisica c = lerClientePF(linha);
             list.add(c);
         }
@@ -62,9 +65,9 @@ public class ClienteDTO {
         String cpf = clientString[7];
         String rg = clientString[8];
         Date dataDeNascimento = new SimpleDateFormat("yyyy-MM-dd").parse(clientString[9]);
-   
 
-        return new ClientePessoaFisica(idCLiente, nome, email, endereço, telefone, userName, senha, cpf, rg, dataDeNascimento);
+        return new ClientePessoaFisica(idCLiente, nome, email, endereço, telefone, userName, senha, cpf, rg,
+                dataDeNascimento);
     }
 
     public static List<ClientePessoaJuridica> lerClientesPJDoArquivo() throws IOException, ParseException {
@@ -73,10 +76,11 @@ public class ClienteDTO {
         InputStream is = new FileInputStream(f.getAbsolutePath());
         InputStreamReader isr = new InputStreamReader(is);
         BufferedReader br = new BufferedReader(isr);
-        
+
         while (true) {
             String linha = br.readLine();
-            if (linha == null) break;
+            if (linha == null)
+                break;
             ClientePessoaJuridica c = lerClientePJ(linha);
             list.add(c);
         }
@@ -99,15 +103,15 @@ public class ClienteDTO {
         String razaoSocial = clientString[8];
         String inscricaoEstadual = clientString[9];
 
-        return new ClientePessoaJuridica(idCLiente, nome, email, endereço, telefone, userName, senha, cnpj, razaoSocial, inscricaoEstadual);
+        return new ClientePessoaJuridica(idCLiente, nome, email, endereço, telefone, userName, senha, cnpj, razaoSocial,
+                inscricaoEstadual);
     }
 
     public static void salvarCliente(ClientePessoaFisica cliente) throws URISyntaxException, IOException {
         File f = new File(CAMINHO_DATABASE + "clientesPF.txt");
 
         PrintWriter pw = new PrintWriter(
-            new FileOutputStream(new File(f.getAbsolutePath()), true)
-        ); 
+                new FileOutputStream(new File(f.getAbsolutePath()), true));
         pw.println(cliente.toTxt());
         pw.flush();
         pw.close();
@@ -117,10 +121,97 @@ public class ClienteDTO {
         File f = new File(CAMINHO_DATABASE + "clientesPJ.txt");
 
         PrintWriter pw = new PrintWriter(
-            new FileOutputStream(new File(f.getAbsolutePath()), true)
-        ); 
+                new FileOutputStream(new File(f.getAbsolutePath()), true));
         pw.println(cliente.toTxt());
         pw.flush();
         pw.close();
+    }
+
+    public static boolean atualizarCliente(ClientePessoaFisica novoCliente) throws URISyntaxException, IOException, ParseException {
+        File inputFile = new File(CAMINHO_DATABASE + "clientesPF.txt");
+        File tempFile = new File(CAMINHO_DATABASE + "tmp.txt");
+
+        BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+
+        String currentLine;
+        String novoClienteTxt = novoCliente.toTxt();
+        Integer idNovoCLiente = Integer.parseInt(novoClienteTxt.split(",")[0]);
+        boolean find = false;
+        
+        while ((currentLine = reader.readLine()) != null) {
+            Integer idCliente = Integer.parseInt(currentLine.split(",")[0]);
+
+
+            if (idCliente.equals(idNovoCLiente)) {
+                writer.write(novoClienteTxt);
+                writer.newLine();
+                find = true;
+                continue;
+            }
+
+            writer.write(currentLine);
+            writer.newLine();
+        }
+
+        reader.close();
+
+        // Delete the original file
+        if(!inputFile.delete()) {
+            writer.close();
+            throw new RuntimeException("Could not delete the original file");
+        }
+
+        writer.flush();
+        writer.close();
+
+        // Rename the tmp file
+        if(!tempFile.renameTo(inputFile)) throw new RuntimeException("Could not rename the temporary file");
+
+        return find;
+    }
+
+    public static boolean atualizarCliente(ClientePessoaJuridica novoCliente) throws URISyntaxException, IOException, ParseException {
+        File inputFile = new File(CAMINHO_DATABASE + "clientesPJ.txt");
+        File tempFile = new File(CAMINHO_DATABASE + "tmp1.txt");
+
+        BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+
+        String currentLine;
+        String novoClienteTxt = novoCliente.toTxt();
+        Integer idNovoCLiente = Integer.parseInt(novoClienteTxt.split(",")[0]);
+        boolean find = false;
+        
+        while ((currentLine = reader.readLine()) != null) {
+            Integer idCliente = Integer.parseInt(currentLine.split(",")[0]);
+
+
+            if (idCliente.equals(idNovoCLiente)) {
+                writer.write(novoClienteTxt);
+                writer.newLine();
+                find = true;
+                continue;
+            }
+
+            writer.write(currentLine);
+            writer.newLine();
+        }
+
+        reader.close();
+
+        // Delete the original file
+        if(!inputFile.delete()) {
+            writer.close();
+            throw new RuntimeException("Could not delete the original file");
+        }
+
+        writer.flush();
+        writer.close();
+
+        // Rename the tmp file
+        if(!tempFile.renameTo(inputFile)) throw new RuntimeException("Could not rename the temporary file");
+
+        return find;
     }
 }

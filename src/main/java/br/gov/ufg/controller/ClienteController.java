@@ -6,6 +6,10 @@ import br.gov.ufg.entity.ClientePessoaFisica;
 import br.gov.ufg.entity.ClientePessoaJuridica;
 import br.gov.ufg.entity.Login;
 import br.gov.ufg.utils.HttpException;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.text.ParseException;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -100,6 +104,19 @@ public class ClienteController {
         return new ResponseEntity<>(novoCliente, HttpStatus.CREATED);
     }
 
+    
+    @PutMapping("cliente/pessoaFisisca")
+    public ResponseEntity<Object> atualizarClientePessoaFisisca(@RequestBody ClientePessoaFisica novoCliente) {
+        try {
+            boolean resultado = ClienteDTO.atualizarCliente(novoCliente);
+            if(!resultado) return HttpException.handleException("Cliente não existe", HttpStatus.NOT_FOUND);
+        } catch (URISyntaxException | IOException | ParseException e) {
+            return HttpException.handleException(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        
+        return new ResponseEntity<>(novoCliente, HttpStatus.OK);
+    }
+
     @PostMapping("cliente/pessoaJuridica")
     public ResponseEntity<Object> cadastrarPessoaJuridica(@RequestBody ClientePessoaJuridica novoCliente) {
         if (
@@ -157,5 +174,17 @@ public class ClienteController {
 
 
         return new ResponseEntity<>(novoCliente, HttpStatus.CREATED);
+    }
+
+    @PutMapping("cliente/pessoaJuridica")
+    public ResponseEntity<Object> atualizarClientePessoaJuridica(@RequestBody ClientePessoaJuridica novoCliente) {
+        try {
+            boolean resultado = ClienteDTO.atualizarCliente(novoCliente);
+            if(!resultado) return HttpException.handleException("Cliente não existe", HttpStatus.NOT_FOUND);
+        } catch (URISyntaxException | IOException | ParseException e) {
+            return HttpException.handleException(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        
+        return new ResponseEntity<>(novoCliente, HttpStatus.OK);
     }
 }

@@ -1,1 +1,1 @@
-0,nomeNovo2,endereço,telefone,userName,email@novo,senha123,850.610.540-40,rg,2000-06-11
+0,nomeNovo2,endereço,telefone,userName,email@pf,senha,850.610.540-40,rg,2000-06-11

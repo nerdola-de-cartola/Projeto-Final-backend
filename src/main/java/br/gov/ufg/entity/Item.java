@@ -1,12 +1,12 @@
 package br.gov.ufg.entity;
 
 public class Item {
-    private int idItem;
-    private int quantidade;
+    private Integer idProduto;
+    private Integer quantidade;
     private double precoUnitario;
     
-    public Item(int idItem, int quantidade, double precoUnitario) {
-        this.idItem = idItem;
+    public Item(Integer idProduto, Integer quantidade, double precoUnitario) {
+        this.idProduto = idProduto;
         this.quantidade = quantidade;
         this.precoUnitario = precoUnitario;
     }
@@ -15,19 +15,19 @@ public class Item {
         return precoUnitario*quantidade;
     }
 
-    public int getIdItem() {
-        return idItem;
+    public Integer getIdProduto() {
+        return idProduto;
     }
 
-    public void setIdItem(int idItem) {
-        this.idItem = idItem;
+    public void setIdProduto(Integer idProduto) {
+        this.idProduto = idProduto;
     }
 
-    public int getQuantidade() {
+    public Integer getQuantidade() {
         return quantidade;
     }
 
-    public void setQuantidade(int quantidade) {
+    public void setQuantidade(Integer quantidade) {
         this.quantidade = quantidade;
     }
 
@@ -37,5 +37,12 @@ public class Item {
 
     public void setPrecoUnitario(double precoUnitario) {
         this.precoUnitario = precoUnitario;
+    }
+
+    public String toTxt() {
+        return
+            idProduto  + "," +
+            quantidade + "," +
+            Double.toString(precoUnitario);
     }
 }

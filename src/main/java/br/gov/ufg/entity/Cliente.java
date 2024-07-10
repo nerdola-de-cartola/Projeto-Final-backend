@@ -11,7 +11,9 @@ public abstract class Cliente extends Login {
     private String userName;
     private List<Pedido> pedidos;
 
-    public Cliente() {}
+    public Cliente() {
+        this.pedidos = new ArrayList<Pedido>();
+    }
 
     public Cliente(
         Integer idCliente,

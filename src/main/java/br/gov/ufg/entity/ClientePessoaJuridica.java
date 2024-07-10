@@ -12,7 +12,7 @@ public class ClientePessoaJuridica extends Cliente {
     }
 
     public ClientePessoaJuridica(
-        int idCLiente,
+        Integer idCLiente,
         String nome,
         String email,
         String endereço,

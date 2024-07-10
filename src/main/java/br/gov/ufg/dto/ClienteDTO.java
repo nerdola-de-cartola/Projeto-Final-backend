@@ -55,7 +55,7 @@ public class ClienteDTO {
 
     public static ClientePessoaFisica lerClientePF(String line) throws ParseException {
         String[] clientString = line.split(",");
-        int idCLiente = Integer.parseInt(clientString[0]);
+        Integer idCLiente = Integer.parseInt(clientString[0]);
         String nome = clientString[1];
         String endereço = clientString[2];
         String telefone = clientString[3];
@@ -92,7 +92,7 @@ public class ClienteDTO {
     public static ClientePessoaJuridica lerClientePJ(String line) throws ParseException {
         String[] clientString = line.split(",");
 
-        int idCLiente = Integer.parseInt(clientString[0]);
+        Integer idCLiente = Integer.parseInt(clientString[0]);
         String nome = clientString[1];
         String endereço = clientString[2];
         String telefone = clientString[3];

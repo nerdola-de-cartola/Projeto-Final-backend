@@ -15,7 +15,7 @@ public class ClientePessoaFisica extends Cliente {
     }
 
     public ClientePessoaFisica(
-        int idCLiente,
+        Integer idCLiente,
         String nome,
         String email,
         String endereço,

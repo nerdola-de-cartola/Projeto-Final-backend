@@ -35,4 +35,10 @@ public class Login {
     public String toString() {
         return "Login [email=" + email + ", senha=" + senha + "]";
     }
+
+    public String toTxt() {
+        return
+            email + "," +
+            senha;
+    }
 }

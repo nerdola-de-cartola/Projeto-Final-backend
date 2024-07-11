@@ -5,6 +5,7 @@ import br.gov.ufg.dto.PedidoDTO;
 import br.gov.ufg.dto.ProdutoDTO;
 import br.gov.ufg.entity.Cliente;
 import br.gov.ufg.entity.Item;
+import br.gov.ufg.entity.Login;
 import br.gov.ufg.entity.Pedido;
 import br.gov.ufg.entity.Produto;
 import br.gov.ufg.utils.HttpException;
@@ -13,14 +14,51 @@ import br.gov.ufg.utils.bodys.PedidoCliente;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @CrossOrigin
 @RestController
 public class PedidoController {
+    @GetMapping("/pedido")
+    public ResponseEntity<Object> listarPedidos(@RequestParam String email, @RequestParam String senha) {
+        Login login = new Login(email, senha);
+        System.out.println(login.toTxt());
+
+        List<Cliente> clientes = null;
+        List<Pedido> lista = null;
+
+        try {
+            lista = PedidoDTO.lerPedidosDoArquivo();
+            clientes = ClienteDTO.lerClientesDoArquivo();
+        } catch (Exception e) {
+            return HttpException.handleException(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        Cliente cliente = clientes.stream()
+            .filter(c -> {
+                return login.login(c.getEmail(), c.getSenha());
+            })
+            .findFirst()
+            .orElse(null);
+
+        if (cliente == null) {
+            return HttpException.handleException("Cliente não autorizado", HttpStatus.UNAUTHORIZED);
+        }
+
+        List<Pedido> listaDoCliente = lista.stream()
+            .filter(pedido -> {
+                return pedido.getIdCliente().equals(cliente.getidCliente());
+            })
+            .toList();
+
+        return new ResponseEntity<>(listaDoCliente, HttpStatus.OK);
+    }
+
     @PostMapping("/pedido")
     public ResponseEntity<Object> cadastrarPedido(@RequestBody PedidoCliente novoPedido) {
         System.out.println(novoPedido.toTxt());
@@ -50,7 +88,9 @@ public class PedidoController {
 
         Cliente cliente = clientes.stream()
             .filter(c -> {
-                return novoPedido.getLogin().login(c.getEmail(), c.getSenha());
+                Boolean sameId = novoPedido.getIdCliente().equals(c.getidCliente());
+                Boolean logged = novoPedido.getLogin().login(c.getEmail(), c.getSenha()); 
+                return sameId && logged;
             })
             .findFirst()
             .orElse(null);
@@ -80,7 +120,7 @@ public class PedidoController {
         novoPedido.setIdPedido(pedidos.size());
 
         try {
-            PedidoDTO.salvarPedido(novoPedido, cliente);
+            PedidoDTO.salvarPedido(novoPedido);
         } catch (Exception e) {
             return HttpException.handleException(e, HttpStatus.INTERNAL_SERVER_ERROR);
         }

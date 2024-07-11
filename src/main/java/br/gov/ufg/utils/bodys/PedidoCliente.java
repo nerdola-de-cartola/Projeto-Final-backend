@@ -10,8 +10,8 @@ public class PedidoCliente extends Pedido {
 
     public PedidoCliente() {}
 
-    public PedidoCliente(Integer idPedido, Date dataPedido, String status, Login login) {
-        super(idPedido, dataPedido, status);
+    public PedidoCliente(Integer idCliente, Integer idPedido, Date dataPedido, String status, Login login) {
+        super(idCliente, idPedido, dataPedido, status);
         this.login = login;
     }
 

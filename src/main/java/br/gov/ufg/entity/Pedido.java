@@ -5,12 +5,14 @@ import java.util.Date;
 import java.util.List;
 
 public class Pedido {
+    private Integer idCliente;
     private Integer idPedido;
     private Date dataPedido;
     private String status;
     private List<Item> itens;
     
-    public Pedido(Integer idPedido, Date dataPedido, String status, List<Item> itens) {
+    public Pedido(Integer idCliente,Integer idPedido, Date dataPedido, String status, List<Item> itens) {
+        this.idCliente = idCliente;
         this.idPedido = idPedido;
         this.dataPedido = dataPedido;
         this.status = status;
@@ -19,7 +21,8 @@ public class Pedido {
 
     public Pedido() {}
 
-    public Pedido(Integer idPedido, Date dataPedido, String status) {
+    public Pedido(Integer idCliente, Integer idPedido, Date dataPedido, String status) {
+        this.idCliente = idCliente;
         this.idPedido = idPedido;
         this.dataPedido = dataPedido;
         this.status = status;
@@ -73,6 +76,7 @@ public class Pedido {
         }
 
         return
+            idCliente + "," +
             idPedido + "," +
             simpleDateFormat.format(dataPedido) + "," +
             status + "," +
@@ -85,5 +89,13 @@ public class Pedido {
 
     public void setItens(List<Item> itens) {
         this.itens = itens;
+    }
+
+    public Integer getIdCliente() {
+        return idCliente;
+    }
+
+    public void setIdCliente(Integer idCliente) {
+        this.idCliente = idCliente;
     }
 }

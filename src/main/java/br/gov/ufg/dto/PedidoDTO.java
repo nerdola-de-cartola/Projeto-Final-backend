@@ -1,6 +1,5 @@
 package br.gov.ufg.dto;
 
-import br.gov.ufg.entity.Cliente;
 import br.gov.ufg.entity.Item;
 import br.gov.ufg.entity.Pedido;
 
@@ -46,9 +45,10 @@ public class PedidoDTO {
         String[] pedidoString = sep[0].split(",");
         String[] itensString = sep[1].split(";");
 
-        Integer idPedido = Integer.parseInt(pedidoString[0]);
-        Date dataPedido = new SimpleDateFormat("yyyy-MM-dd").parse(pedidoString[1]);
-        String status = pedidoString[2];
+        Integer idCliente = Integer.parseInt(pedidoString[0]);
+        Integer idPedido = Integer.parseInt(pedidoString[1]);
+        Date dataPedido = new SimpleDateFormat("yyyy-MM-dd").parse(pedidoString[2]);
+        String status = pedidoString[3];
         
         List<Item> itens = new ArrayList<Item>();
         for (String itemString : itensString) {
@@ -56,7 +56,7 @@ public class PedidoDTO {
             itens.add(i);
         }
     
-        return new Pedido(idPedido, dataPedido, status, itens);
+        return new Pedido(idCliente, idPedido, dataPedido, status, itens);
     }
 
     private static Item lerItem(String line) {
@@ -69,15 +69,13 @@ public class PedidoDTO {
         return new Item(idProduto, quantidade, precoUnitario);
     }
 
-    public static void salvarPedido(Pedido pedido, Cliente cliente) throws URISyntaxException, IOException {
+    public static void salvarPedido(Pedido pedido) throws URISyntaxException, IOException {
         File f = new File(CAMINHO_DATABASE);
 
         PrintWriter pw = new PrintWriter(
                 new FileOutputStream(new File(f.getAbsolutePath()), true));
 
-        String line = pedido.toTxt() + "," + cliente.getidCliente();
-
-        pw.println(line);
+        pw.println(pedido.toTxt());
         pw.flush();
         pw.close();
     }

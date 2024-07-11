@@ -105,7 +105,6 @@ public abstract class Cliente extends Login {
             endereço + "," +
             telefone + "," +
             userName + "," +
-            getEmail() + "," +
-            getSenha();
+            super.toTxt();
     }
 }

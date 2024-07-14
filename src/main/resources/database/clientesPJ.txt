@@ -1,1 +1,1 @@
-1,nome,endereço,telefone,userName,emai2l@pj,senha,07.319.759/0001-80,razaoSocial,inscricaoEstadual
+1,nome,endereço,telefone,userName,email@pj,senha,07.319.759/0001-80,razaoSocial,inscricaoEstadual

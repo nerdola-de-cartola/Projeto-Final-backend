@@ -15,7 +15,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
-@CrossOrigin
+@CrossOrigin()
 @RestController
 public class ProdutoController {
 

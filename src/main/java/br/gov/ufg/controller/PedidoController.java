@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
-@CrossOrigin
+@CrossOrigin()
 @RestController
 public class PedidoController {
     @GetMapping("/pedido")
@@ -62,8 +62,6 @@ public class PedidoController {
     @PostMapping("/pedido")
     public ResponseEntity<Object> cadastrarPedido(@RequestBody PedidoCliente novoPedido) {
         System.out.println(novoPedido.toTxt());
-        System.out.println(novoPedido.getLogin().getEmail());
-        System.out.println(novoPedido.getLogin().getSenha());
 
         if (
             novoPedido.getIdPedido() != null ||

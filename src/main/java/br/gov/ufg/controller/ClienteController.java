@@ -104,7 +104,6 @@ public class ClienteController {
         return new ResponseEntity<>(novoCliente, HttpStatus.CREATED);
     }
 
-    
     @PutMapping("cliente/pessoaFisisca")
     public ResponseEntity<Object> atualizarClientePessoaFisisca(@RequestBody ClientePessoaFisica novoCliente) {
         try {

@@ -15,7 +15,7 @@ public class ClientePessoaJuridica extends Cliente {
         Integer idCLiente,
         String nome,
         String email,
-        String endereço,
+        String endereco,
         String telefone,
         String userName,
         String password,
@@ -26,7 +26,7 @@ public class ClientePessoaJuridica extends Cliente {
         super(idCLiente,
         nome,
         email,
-        endereço,
+        endereco,
         telefone,
         userName,
         password);
@@ -78,7 +78,7 @@ public class ClientePessoaJuridica extends Cliente {
         ", getNome()=" + getNome() +
         ", getInscricaoEstadual()=" + getInscricaoEstadual() +
         ", getidCliente()=" + getidCliente() +
-        ", getEndereço()=" + getEndereço() +
+        ", getEndereco()=" + getEndereco() +
         ", getTelefone()=" + getTelefone() +
         ", getUserName()=" + getUserName() +
         "}";

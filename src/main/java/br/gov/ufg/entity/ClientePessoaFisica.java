@@ -18,7 +18,7 @@ public class ClientePessoaFisica extends Cliente {
         Integer idCLiente,
         String nome,
         String email,
-        String endereço,
+        String endereco,
         String telefone,
         String userName,
         String password,
@@ -26,7 +26,7 @@ public class ClientePessoaFisica extends Cliente {
         String rg,
         Date dataDeNascimento
     ) {
-        super(idCLiente, nome, email, endereço, telefone, userName, password);
+        super(idCLiente, nome, email, endereco, telefone, userName, password);
         this.cpf = cpf;
         this.rg = rg;
         this.dataDeNascimento = dataDeNascimento;
@@ -66,7 +66,7 @@ public class ClientePessoaFisica extends Cliente {
             ", getNome()=" + getNome() +
             ", getDataDeNascimento()=" + getDataDeNascimento() +
             ", getidCliente()=" + getidCliente() +
-            ", getEndereço()=" + getEndereço() +
+            ", getEndereco()=" + getEndereco() +
             ", getTelefone()=" + getTelefone() +
             ", getUserName()=" + getUserName() +
             "}";

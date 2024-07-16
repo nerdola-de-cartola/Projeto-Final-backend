@@ -1,1 +1,2 @@
 1,nome,endereço,telefone,userName,email@pj,senha,07.319.759/0001-80,razaoSocial,inscricaoEstadual
+4,MATHEUS LUCAS PIRES,A,(99) 99999-9999,MATHEUS LUCAS PIRES,matheus.pires.lmp@gmail.com,123,51.984.324/0001-42,rasdFASe,iiiiiiiiiiiiiiiii

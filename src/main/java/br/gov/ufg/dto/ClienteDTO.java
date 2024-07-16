@@ -57,7 +57,7 @@ public class ClienteDTO {
         String[] clientString = line.split(",");
         Integer idCLiente = Integer.parseInt(clientString[0]);
         String nome = clientString[1];
-        String endereço = clientString[2];
+        String endereco = clientString[2];
         String telefone = clientString[3];
         String userName = clientString[4];
         String email = clientString[5];
@@ -66,7 +66,7 @@ public class ClienteDTO {
         String rg = clientString[8];
         Date dataDeNascimento = new SimpleDateFormat("yyyy-MM-dd").parse(clientString[9]);
 
-        return new ClientePessoaFisica(idCLiente, nome, email, endereço, telefone, userName, senha, cpf, rg,
+        return new ClientePessoaFisica(idCLiente, nome, email, endereco, telefone, userName, senha, cpf, rg,
                 dataDeNascimento);
     }
 
@@ -94,7 +94,7 @@ public class ClienteDTO {
 
         Integer idCLiente = Integer.parseInt(clientString[0]);
         String nome = clientString[1];
-        String endereço = clientString[2];
+        String endereco = clientString[2];
         String telefone = clientString[3];
         String userName = clientString[4];
         String email = clientString[5];
@@ -103,7 +103,7 @@ public class ClienteDTO {
         String razaoSocial = clientString[8];
         String inscricaoEstadual = clientString[9];
 
-        return new ClientePessoaJuridica(idCLiente, nome, email, endereço, telefone, userName, senha, cnpj, razaoSocial,
+        return new ClientePessoaJuridica(idCLiente, nome, email, endereco, telefone, userName, senha, cnpj, razaoSocial,
                 inscricaoEstadual);
     }
 

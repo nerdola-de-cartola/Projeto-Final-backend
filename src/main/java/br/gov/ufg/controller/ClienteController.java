@@ -45,13 +45,13 @@ public class ClienteController {
         return new ResponseEntity<>(cliente, HttpStatus.ACCEPTED);
     }
 
-    @PostMapping("cliente/pessoaFisisca")
+    @PostMapping("cliente/pessoaFisica")
     public ResponseEntity<Object> cadastrarPessoaFisica(@RequestBody ClientePessoaFisica novoCliente) {
         if (
             novoCliente.getCpf() == null ||
             novoCliente.getDataDeNascimento() == null ||
             novoCliente.getEmail() == null ||
-            novoCliente.getEndereço() == null ||
+            novoCliente.getEndereco() == null ||
             novoCliente.getNome() == null ||
             novoCliente.getRg() == null ||
             novoCliente.getSenha() == null ||
@@ -104,7 +104,7 @@ public class ClienteController {
         return new ResponseEntity<>(novoCliente, HttpStatus.CREATED);
     }
 
-    @PutMapping("cliente/pessoaFisisca")
+    @PutMapping("cliente/pessoaFisica")
     public ResponseEntity<Object> atualizarClientePessoaFisisca(@RequestBody ClientePessoaFisica novoCliente) {
         try {
             boolean resultado = ClienteDTO.atualizarCliente(novoCliente);
@@ -122,7 +122,7 @@ public class ClienteController {
             novoCliente.getCnpj() == null ||
             novoCliente.getInscricaoEstadual() == null ||
             novoCliente.getEmail() == null ||
-            novoCliente.getEndereço() == null ||
+            novoCliente.getEndereco() == null ||
             novoCliente.getNome() == null ||
             novoCliente.getRazaoSocial() == null ||
             novoCliente.getSenha() == null ||

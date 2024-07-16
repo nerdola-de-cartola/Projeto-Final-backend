@@ -6,7 +6,7 @@ import java.util.List;
 public abstract class Cliente extends Login {
     private Integer idCliente;
     private String nome;
-    private String endereço;
+    private String endereco;
     private String telefone;
     private String userName;
     private List<Pedido> pedidos;
@@ -19,7 +19,7 @@ public abstract class Cliente extends Login {
         Integer idCliente,
         String nome,
         String email,
-        String endereço,
+        String endereco,
         String telefone,
         String userName,
         String senha)
@@ -27,7 +27,7 @@ public abstract class Cliente extends Login {
         super(email, senha);
         this.idCliente = idCliente;
         this.nome = nome;
-        this.endereço = endereço;
+        this.endereco = endereco;
         this.telefone = telefone;
         this.userName = userName;
         this.pedidos = new ArrayList<Pedido>();
@@ -36,7 +36,7 @@ public abstract class Cliente extends Login {
     public void atualizaDados(Cliente novoCliente) {
         this.idCliente = novoCliente.getidCliente();
         this.nome = novoCliente.getNome();
-        this.endereço = novoCliente.getEndereço();
+        this.endereco = novoCliente.getEndereco();
         this.telefone = novoCliente.getTelefone();
         this.userName = novoCliente.getUserName();
         this.setSenha(novoCliente.getSenha());
@@ -59,12 +59,12 @@ public abstract class Cliente extends Login {
         this.idCliente = idCliente;
     }
 
-    public String getEndereço() {
-        return endereço;
+    public String getEndereco() {
+        return endereco;
     }
 
-    public void setEndereço(String endereço) {
-        this.endereço = endereço;
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
     }
 
     public String getTelefone() {
@@ -93,7 +93,7 @@ public abstract class Cliente extends Login {
 
     @Override
     public String toString() {
-        return "Cliente [idCliente=" + idCliente + ", nome=" + nome + ", endereço=" + endereço + ", telefone="
+        return "Cliente [idCliente=" + idCliente + ", nome=" + nome + ", endereco=" + endereco + ", telefone="
                 + telefone + ", userName=" + userName + ", pedidos=" + pedidos + ", getEmail()=" + getEmail()
                 + ", getSenha()=" + getSenha() + "]";
     }
@@ -102,7 +102,7 @@ public abstract class Cliente extends Login {
         return
             idCliente.toString() + "," +
             nome + "," +
-            endereço + "," +
+            endereco + "," +
             telefone + "," +
             userName + "," +
             super.toTxt();

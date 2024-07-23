@@ -11,18 +11,20 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ProdutoDTO {
+public class ProdutoDTO implements ProdutoInterface {
 
     private static final String CAMINHO_ARQUIVO = "database/produtos.txt";
+    private java.nio.file.Path caminhoArquivoAbsoluto;
 
-    public static List<Produto> lerProdutosDoArquivo() throws IOException, URISyntaxException {
-
+    public ProdutoDTO() throws URISyntaxException {
         // Tentar obter o caminho do arquivo como um recurso
         java.net.URL resource = Main.class.getClassLoader().getResource(CAMINHO_ARQUIVO);
-
+    
         // Converter URL para URI e obter o caminho absoluto
-        java.nio.file.Path caminhoArquivoAbsoluto = Paths.get(resource.toURI());
+        caminhoArquivoAbsoluto = Paths.get(resource.toURI());
+    }
 
+    public List<Produto> lerProdutosDoArquivo() throws IOException {
         return Files.lines(caminhoArquivoAbsoluto)
                 .map(line -> {
                     String[] prod = line.split(",");

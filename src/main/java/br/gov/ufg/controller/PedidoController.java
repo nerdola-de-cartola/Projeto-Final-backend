@@ -2,7 +2,7 @@ package br.gov.ufg.controller;
 
 import br.gov.ufg.dto.ClienteDTO;
 import br.gov.ufg.dto.PedidoDTO;
-import br.gov.ufg.dto.ProdutoDTO;
+import br.gov.ufg.dto.ProdutoInterface;
 import br.gov.ufg.entity.Cliente;
 import br.gov.ufg.entity.Item;
 import br.gov.ufg.entity.Login;
@@ -24,6 +24,8 @@ import java.util.List;
 @CrossOrigin()
 @RestController
 public class PedidoController {
+    ProdutoInterface produtoDTO = new ProdutoProxy();
+
     @GetMapping("/pedido")
     public ResponseEntity<Object> listarPedidos(@RequestParam String email, @RequestParam String senha) {
         Login login = new Login(email, senha);
@@ -78,7 +80,7 @@ public class PedidoController {
         try {
             clientes = ClienteDTO.lerClientesDoArquivo();
             pedidos = PedidoDTO.lerPedidosDoArquivo();
-            produtos = ProdutoDTO.lerProdutosDoArquivo();
+            produtos = produtoDTO.lerProdutosDoArquivo();
         } catch (Exception e) {
             System.err.println(e.getStackTrace().toString());
             return HttpException.handleException(e, HttpStatus.INTERNAL_SERVER_ERROR);
